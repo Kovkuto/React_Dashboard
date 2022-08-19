@@ -20,8 +20,10 @@ export const Featured = () => {
                 <div className="featuredChart">
                     <CircularProgressbar styles={styles} value={70} text="70%" strokeWidth={5} />
                 </div>
-                <p className="title">Total sales made today</p>
-                <p className="amount">$420</p>
+                <div className='featuredItemsContainer'>
+                    <p className="title">Total sales made today</p>
+                    <p className="amount">$420</p>
+                </div>
                 <p className="desc">
                     Previous transactions processing. Last payments may not be included.
                 </p>
