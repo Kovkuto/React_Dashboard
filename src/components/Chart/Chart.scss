@@ -5,6 +5,12 @@
     flex: 4;
     padding: 10px;
     color: gray;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: inherit;
+    height: inherit;
+
 
     .title {
         margin-bottom: 20px;
