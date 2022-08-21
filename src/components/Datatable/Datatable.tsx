@@ -5,24 +5,12 @@ import { Table } from '../Table/Table'
 import { Link } from 'react-router-dom'
 
 interface IUser {
-    id: {
-        value: string
-    }
-    name: {
-        first: string
-        last: string
-    }
-    dob: {
-        age: number
-    },
-    login: {
-        uuid: string
-        username: string
-    },
-    picture: {
-        medium: string
-    }
-    gender: 'male' | 'female'
+    id: number
+    name: string
+    username: string
+    email: string
+    website: string,
+    phone: string
 }
 
 interface IDatatable {
@@ -53,16 +41,13 @@ export const Datatable = React.memo<IDatatable>(({ dataType }) => {
     useEffect(() => {
         const fetchFunc = () => {
             if (dataType === 'users') {
-                fetch('https://randomuser.me/api/?results=50')
-                    .then(response => response.json()).then(data => setRows(data.results))
-            } else {
-                fetch('https://shoppingcontent.googleapis.com/content/v2.1/aksjfdkfklafjk/products')
-                    .then(response => response.json()).then(data => console.log(data))
+                fetch('https://jsonplaceholder.typicode.com/users')
+                    .then(response => response.json()).then(data => setRows(data))
             }
         }
 
         fetchFunc()
-    }, [dataType])
+    }, [])
 
 
     return (
@@ -75,43 +60,62 @@ export const Datatable = React.memo<IDatatable>(({ dataType }) => {
             </div>
             {dataType === 'users'
                 ? <DataGrid
+                    className='datagrid'
                     rows={rows}
                     columns={usersColumns.concat(actionColumn)}
                     pageSize={9}
                     rowsPerPageOptions={[5]}
                     checkboxSelection
-                    getRowId={(row) => row.login.uuid}
                 /> : <Table />}
         </div>
     )
 })
 
+// {
+//     "id": 1,
+//     "name": "Leanne Graham",
+//     "username": "Bret",
+//     "email": "Sincere@april.biz",
+//     "address": {
+//     "street": "Kulas Light",
+//     "suite": "Apt. 556",
+//     "city": "Gwenborough",
+//     "zipcode": "92998-3874",
+//     "geo": {
+//     "lat": "-37.3159",
+//     "lng": "81.1496"
+//     }
+//     },
+//     "phone": "1-770-736-8031 x56442",
+//     "website": "hildegard.org",
+//     "company": {
+//     "name": "Romaguera-Crona",
+//     "catchPhrase": "Multi-layered client-server neural-net",
+//     "bs": "harness real-time e-markets"
+//     }
+//     },
+
 const usersColumns: GridColDef[] = [
-    { field: 'id', headerName: 'ID', width: 145, valueGetter: (params: Params) => params.row.id.value },
+    { field: 'id', headerName: 'ID', width: 50, valueGetter: (params: Params) => params.row.id },
+    { field: 'username', headerName: 'Username', width: 150 },
     {
-        field: 'user', headerName: 'User', width: 230, renderCell: (params: Params) => (
-            <div className="cellWithImg">
-                <img src={params.row.picture.medium} alt="avatar" className="cellImg" />
-                {params.row.login.username}
-            </div>
-        )
-    },
-    {
-        field: 'fullName',
+        field: 'name',
         headerName: 'Full Name',
         width: 130,
-        valueGetter: (params: Params) => params.row.name.first + ' ' + params.row.name.last
     },
     {
-        field: 'age',
-        headerName: 'Age',
-        width: 130,
-        valueGetter: (params: Params) => params.row.dob.age
+        field: 'email',
+        headerName: 'Email',
+        width: 230
     },
     {
-        field: 'gender',
-        headerName: 'Gender',
-        width: 130,
-        renderCell: (params: Params) => params.row.gender.charAt(0).toUpperCase() + params.row.gender.slice(1)
+        field: 'website',
+        headerName: 'Website',
+        width: 130
+    },
+    {
+        field: 'phone',
+        headerName: 'Phone',
+        width: 200
     }
 ];

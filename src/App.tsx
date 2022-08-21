@@ -1,14 +1,18 @@
-import React from "react";
+import React, { createContext, useContext, useState } from "react";
 import { Route, Routes } from "react-router-dom";
+import { DarkModeContext } from "./context/darkModeContext";
 import { Home } from "./pages/Home/Home";
 import { List } from "./pages/List/List";
 import { Login } from "./pages/Login/Login";
 import { New } from "./pages/New/New";
 import { Single } from "./pages/Single/Single";
+import './style/dark.scss'
 
 function App() {
+  const { darkMode } = useContext(DarkModeContext)
+
   return (
-    <div>
+    <div className={darkMode ? "app dark" : "app"}>
       <Routes>
         <Route path="*" element={<p>404 Page Not Found</p>} />
         <Route path="/">

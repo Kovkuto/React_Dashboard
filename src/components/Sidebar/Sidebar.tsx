@@ -1,7 +1,6 @@
 import {
     AccountCircleOutlined,
     CreditCard,
-    Dashboard,
     DashboardOutlined,
     LocalShippingOutlined,
     LogoutOutlined,
@@ -13,12 +12,15 @@ import {
     SettingsSystemDaydreamOutlined,
     StoreOutlined,
 } from "@mui/icons-material";
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { DarkModeContext } from "../../context/darkModeContext";
 import "./Sidebar.scss";
 
 
 export const Sidebar = () => {
+    const { dispatch } = useContext(DarkModeContext)
+
     return (
         <div className="sidebar">
             <div className="top">
@@ -42,38 +44,11 @@ export const Sidebar = () => {
                         icon={<PersonOutlineOutlined />}
                     />
                     <SidebarItem to="/products" text="Products" icon={<StoreOutlined />} />
-                    <SidebarItem text="Orders" icon={<CreditCard />} />
-                    <SidebarItem
-                        text="Delivery"
-                        icon={<LocalShippingOutlined />}
-                    />
-                    <p className="title">USEFUL</p>
-
-                    <SidebarItem text="Stats" icon={<QueryStatsOutlined />} />
-                    <SidebarItem
-                        text="Notifications"
-                        icon={<NotificationsOutlined />}
-                    />
-                    <p className="title">SERVICE</p>
-
-                    <SidebarItem
-                        text="System Health"
-                        icon={<SettingsSystemDaydreamOutlined />}
-                    />
-                    <SidebarItem text="Logs" icon={<PsychologyOutlined />} />
-                    <SidebarItem text="Settings" icon={<SettingsOutlined />} />
-                    <p className="title">USER</p>
-
-                    <SidebarItem
-                        text="Profile"
-                        icon={<AccountCircleOutlined />}
-                    />
-                    <SidebarItem text="Logout" icon={<LogoutOutlined />} />
                 </ul>
             </div>
             <div className="bottom">
-                <div className="colorOption"></div>
-                <div className="colorOption"></div>
+                <div className="colorOption" onClick={() => dispatch({ type: 'LIGHT' })}></div>
+                <div className="colorOption" onClick={() => dispatch({ type: 'DARK' })}></div>
             </div>
         </div>
     );
@@ -86,15 +61,19 @@ interface ISidebarItem {
 }
 
 const SidebarItem: React.FC<ISidebarItem> = ({ text, icon, to }) => {
-    return (<>{
-        to ? <Link to={to}>< li >
-            <p className="icon">{icon}</p>
-            <span>{text}</span></li >
-        </Link >
-            : <li>
-                <p className="icon">{icon}</p>
-                <span>{text}</span>
-            </li>
-    }</>)
+    return (<>
+        {
+            to ? <Link to={to}>
+                <li>
+                    <p className="icon">{icon}</p>
+                    <span>{text}</span>
+                </li>
+            </Link >
+                : <li>
+                    <p className="icon">{icon}</p>
+                    <span>{text}</span>
+                </li>
+        }
+    </>)
 
 };

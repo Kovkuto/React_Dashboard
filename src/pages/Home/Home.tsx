@@ -26,8 +26,8 @@ export const Home = () => {
                 <div className="listContainer">
                     <div className="listTitle">
                         Latest Transactions
-                        <Table />
                     </div>
+                    <Table />
                 </div>
             </div>
         </div>

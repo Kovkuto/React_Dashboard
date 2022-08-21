@@ -7,10 +7,14 @@ import {
     NotificationsNoneOutlined,
     SearchOutlined,
 } from "@mui/icons-material";
-import React from "react";
+import React, { useContext } from "react";
+import { DarkModeContext } from "../../context/darkModeContext";
 import "./Navbar.scss";
 
 export const Navbar = () => {
+    const { dispatch } = useContext(DarkModeContext)
+
+
     return (
         <div className="navbar">
             <div className="wrapper">
@@ -20,29 +24,28 @@ export const Navbar = () => {
                 </div>
                 <div className="items">
                     <div className="item">
-                        <LanguageOutlined  className="icon"/>
+                        <LanguageOutlined className="icon" />
                         English
                     </div>
-                    <div className="item">
-                        <DarkModeOutlined className="icon"/>
-                        Dark Mode
+                    <div className="item" onClick={() => dispatch({ type: 'TOGGLE' })} style={{ 'cursor': 'pointer' }}>
+                        <DarkModeOutlined className="icon" />
                     </div>
                     <div className="item">
-                        <FullscreenExitSharp className="icon"/>
+                        <FullscreenExitSharp className="icon" />
                     </div>
                     <div className="item">
-                        <NotificationsNoneOutlined className="icon"/>
+                        <NotificationsNoneOutlined className="icon" />
                         <div className="counter">1</div>
                     </div>
                     <div className="item">
-                        <ChatBubbleOutlineOutlined className="icon"/>
+                        <ChatBubbleOutlineOutlined className="icon" />
                         <div className="counter">2</div>
                     </div>
                     <div className="item">
-                        <ListOutlined className="icon"/>
+                        <ListOutlined className="icon" />
                     </div>
                     <div className="item">
-                        <img src="https://i.pravatar.cc/40" alt="" className="avatar"/>
+                        <img src="https://i.pravatar.cc/40" alt="" className="avatar" />
                     </div>
                 </div>
             </div>
